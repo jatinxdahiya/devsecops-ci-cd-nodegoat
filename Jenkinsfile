@@ -14,7 +14,7 @@ pipeline{
         stage('Build Docker Image'){
             steps{
                 dir('.'){
-                    sh 'docker built -t nodegoat-devops .'
+                    sh 'docker build -t nodegoat-devops .'
                 }
             }
         }
