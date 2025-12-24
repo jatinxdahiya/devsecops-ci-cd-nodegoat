@@ -47,6 +47,19 @@ Developer -> GitHub -> Jenkins Pipeline -> Docker Build -> Docker Compose Deploy
 
 ---
 
+## 📸 CI/CD Pipeline Execution
+
+### Jenkins Pipeline – Successful Run
+![Jenkins Pipeline](screenshots/jenkins-pipeline-success.png)
+
+### Jenkins Console Output
+![Jenkins Console](screenshots/jenkins-console-log.png)
+
+### Application Running
+![NodeGoat Running](screenshots/app-running.png)
+
+---
+
 ## How to Run Locally
 
 ```bash
