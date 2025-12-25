@@ -15,19 +15,20 @@ pipeline{
         
         stage('Deploy to AWS EC2') {
             steps {
-                sh """
-                ssh ubuntu@3.110.207.223 << 'EOF'
-                  if [ ! -d NodeGoat ]; then
-                    git clone https://github.com/jatinxdahiya/NodeGoat.git
+                  sh """
+                  ssh -o StrictHostKeyChecking=no ubuntu@3.110.207.223 << 'EOF'
+                  set -e
+                  if [ ! -d devops-ci-cd-nodegoat ]; then
+                     git clone https://github.com/jatinxdahiya/devops-ci-cd-nodegoat.git
                   fi
-                  cd NodeGoat
+                  cd devops-ci-cd-nodegoat
                   docker compose down || true
                   docker compose up -d --build
-                EOF
-                """
+                  EOF
+                  """
             }
-        }
-
+        } 
+        
         stage('Build Docker Image'){
             steps{
                 sh '''
