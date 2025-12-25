@@ -12,6 +12,21 @@ pipeline{
                 checkout scm
             }
         }
+        
+        stage('Deploy to AWS EC2') {
+            steps {
+                sh """
+                ssh ubuntu@3.110.207.223 << 'EOF'
+                  if [ ! -d NodeGoat ]; then
+                    git clone https://github.com/jatinxdahiya/NodeGoat.git
+                  fi
+                  cd NodeGoat
+                  docker compose down || true
+                  docker compose up -d --build
+                EOF
+                """
+            }
+        }
 
         stage('Build Docker Image'){
             steps{
