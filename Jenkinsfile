@@ -16,13 +16,18 @@ pipeline{
     
         stage('SAST - SonarQube') {
              steps {
-                 withSonarQubeEnv('Sonarqube') {
-                      sh '''
-                          ${tool 'SonarQubeScanner'}/bin/sonar-scanner \
+                 script {
+                     def scannerHome = tool 'SonarQubeScanner'
+                     
+
+                     withSonarQubeEnv('Sonarqube') {
+                      sh """
+                          ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=nodegoat-devsecops \
                           -Dsonar.sources=. \
                           -Dsonar.language=js
-                      '''
+                      """
+                     }
                  }
              }
          }
