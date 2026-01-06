@@ -39,7 +39,7 @@ pipeline{
                     --scan .
                     --format HTML
                     --out dependency-check-report
-                '''
+                ''',
                 odcInstallation: 'DependencyCheck'
 
                 dependencyCheckPublisher pattern: '**/dependency-check-report/dependency-check-report.html'
