@@ -18,7 +18,7 @@ pipeline{
              steps {
                  withSonarQubeEnv('Sonarqube') {
                       sh '''
-                          sonar-scanner \
+                          ${tool 'SonarQubeScanner'}/bin/sonar-scanner \
                           -Dsonar.projectKey=nodegoat-devsecops \
                           -Dsonar.sources=. \
                           -Dsonar.language=js
