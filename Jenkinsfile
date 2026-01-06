@@ -16,7 +16,7 @@ pipeline{
     
         stage('SAST - SonarQube') {
              steps {
-                 withSonarQubeEnv('SonarQube') {
+                 withSonarQubeEnv('Sonarqube') {
                       sh '''
                           sonar-scanner \
                           -Dsonar.projectKey=nodegoat-devsecops \
