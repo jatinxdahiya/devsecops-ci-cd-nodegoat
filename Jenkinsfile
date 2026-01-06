@@ -12,13 +12,13 @@ pipeline{
                 checkout scm
             }
         }
-        
-    
+
+
         stage('SAST - SonarQube') {
              steps {
                  script {
                      def scannerHome = tool 'SonarQubeScanner'
-                     
+
 
                      withSonarQubeEnv('Sonarqube') {
                       sh """
@@ -31,6 +31,20 @@ pipeline{
                  }
              }
          }
+
+
+         stage('SCA - Dependency Check'){
+            steps{
+                dependencyCheck additionalArguments: '''
+                    --scan .
+                    --format HTML
+                    --out dependency-check-report
+                '''
+                odcInstallation: 'DependencyCheck'
+
+                dependencyCheckPublisher pattern: '**/dependency-check-report/dependency-check-report.html'
+            }
+         }
     }
     post{
         success{
@@ -41,3 +55,4 @@ pipeline{
         }
     }
 }
+
