@@ -50,6 +50,7 @@ pipeline{
             steps{
                 sh '''
                 docker run --rm \
+                    -v "$PWD:/zap/wrk" \
                     ghcr.io/zaproxy/zaproxy:stable \
                     zap-baseline.py \
                     -t http://192.168.0.108:4000 \
