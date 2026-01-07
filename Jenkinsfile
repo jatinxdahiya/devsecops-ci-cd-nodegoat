@@ -50,10 +50,10 @@ pipeline{
             steps{
                 sh '''
                 docker run --rm \
-                    ghcr.io/zaproxy/zproxy:stable \
+                    ghcr.io/zaproxy/zaproxy:stable \
                     zap-baseline.py \
                     -t http://192.168.0.108:4000 \
-                    -r zap.report.html || true
+                    -r zap-report.html || true
                 '''
 
                 archiveArtifacts artifacts: 'zap-report.html', fingerprint: true
