@@ -45,13 +45,35 @@ pipeline{
                 dependencyCheckPublisher pattern: '**/dependency-check-report/dependency-check-report.html'
             }
          }
+
+         stage('DAST - OWASP ZAP'){
+            steps{
+                sh '''
+                docker run --rm \
+                    ghcr.io/zaproxy/zproxy:stable \
+                    zap-baseline.py \
+                    -t http://192.168.0.108:4000 \
+                    -r zap.report.html || true
+                '''
+
+                archiveArtifacts artifacts: 'zap-report.html', fingerprint: true
+            }
+         }
     }
     post{
+
+        always{
+            publishHTML([
+                reportDir: '.',
+                reportFiles: 'zap-report.html',
+                reportName: 'OWASP ZAP DAST Report'
+            ])
+        }
         success{
-            echo '✅ SAST completed successfully'
+            echo '✅ DevSecOps completed successfully'
         }
         failure{
-            echo '❌ SAST failed'
+            echo '❌ DevSecOps failed'
         }
     }
 }
