@@ -62,13 +62,6 @@ pipeline{
     }
     post{
 
-        always{
-            publishHTML([
-                reportDir: '.',
-                reportFiles: 'zap-report.html',
-                reportName: 'OWASP ZAP DAST Report'
-            ])
-        }
         success{
             echo '✅ DevSecOps completed successfully'
         }
