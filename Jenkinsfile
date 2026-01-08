@@ -18,7 +18,7 @@ pipeline{
             steps {
                 withSonarQubeEnv('Sonarqube') {
                       script {
-                         def scannerHome = tool 'SonarScanner'
+                         def scannerHome = tool 'SonarQubeScanner'
                          sh """
                          ${scannerHome}/bin/sonar-scanner \
                          -Dsonar.projectKey=nodegoat-devsecops \
