@@ -16,22 +16,23 @@ pipeline{
 
         stage('SAST - SonarQube') {
              steps {
-                 script {
-                     def scannerHome = tool 'SonarQubeScanner'
-
-
-                     withSonarQubeEnv('Sonarqube') {
-                      sh """
-                          ${scannerHome}/bin/sonar-scanner \
-                          -Dsonar.projectKey=nodegoat-devsecops \
-                          -Dsonar.sources=. \
-                          -Dsonar.language=js
-                      """
-                     }
-                 }
+                withSonarQubeEnv('Sonarqube'){
+                    sh '''
+                    sonar-scanner \
+                    -Dsonar.projectKey=nodegoat-devsecops \
+                    -Dsonar.sources=.
+                    '''
+                }
              }
          }
 
+         stage('Quality Gate'){
+            steps{
+                timeout(time: 2, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+         }
 
          stage('SCA - Dependency Check'){
             steps{
@@ -50,7 +51,6 @@ pipeline{
             steps{
                 sh '''
                 docker run --rm \
-                    -v "$PWD:/zap/wrk" \
                     ghcr.io/zaproxy/zaproxy:stable \
                     zap-baseline.py \
                     -t http://192.168.0.108:4000 \
@@ -62,7 +62,6 @@ pipeline{
          }
     }
     post{
-
         success{
             echo '✅ DevSecOps completed successfully'
         }
