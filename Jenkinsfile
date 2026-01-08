@@ -15,16 +15,20 @@ pipeline{
 
 
         stage('SAST - SonarQube') {
-             steps {
-                withSonarQubeEnv('Sonarqube'){
-                    sh '''
-                    sonar-scanner \
-                    -Dsonar.projectKey=nodegoat-devsecops \
-                    -Dsonar.sources=.
-                    '''
+            steps {
+                withSonarQubeEnv('Sonarqube') {
+                      script {
+                         def scannerHome = tool 'SonarScanner'
+                         sh """
+                         ${scannerHome}/bin/sonar-scanner \
+                         -Dsonar.projectKey=nodegoat-devsecops \
+                         -Dsonar.sources=.
+                         """
+                      }
                 }
-             }
+            }
          }
+
 
          stage('Quality Gate'){
             steps{
