@@ -28,6 +28,8 @@ findings are expected and intentional.
 
 ## Architecture
 
+```bash
+
 Developer
   |
   |  Git Push
@@ -44,6 +46,8 @@ Jenkins (CI/CD Orchestrator)
   |
   v
 Security Reports (Artifacts)
+
+```
 
 ---
 
@@ -140,7 +144,7 @@ OWASP ZAP:
 
 ---
 
-## 📂 Jenkins Artifacts
+## Jenkins Artifacts
 
 - zap-report.html
 - Dependency-Check HTML report
@@ -148,7 +152,7 @@ OWASP ZAP:
 
 ---
 
-## 🛠️ Tools and Technologies
+## Tools and Technologies
 
 - Jenkins
 - SonarQube
@@ -161,7 +165,7 @@ OWASP ZAP:
 
 ---
 
-## 🎯 Key DevSecOps Concepts Demonstrated
+## Key DevSecOps Concepts Demonstrated
 
 - Shift-left security
 - Automated security gates
@@ -202,7 +206,7 @@ TCS - Work From Home
 
 
 
-## 📸 CI/CD Pipeline Execution
+## CI/CD Pipeline Execution
 
 ### Jenkins Pipeline – Successful Run
 ![Jenkins Pipeline](screenshots/jenkins-pipeline-success.png)
